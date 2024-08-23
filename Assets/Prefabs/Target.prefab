@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 550769397443267829}
   - component: {fileID: 7170071420456767314}
   - component: {fileID: 8991875544446046434}
-  - component: {fileID: 4719252336513899165}
+  - component: {fileID: 4196675447267519474}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -150,7 +150,7 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!114 &4719252336513899165
+--- !u!114 &4196675447267519474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
