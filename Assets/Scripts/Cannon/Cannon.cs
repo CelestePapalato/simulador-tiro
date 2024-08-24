@@ -20,4 +20,13 @@ public class Cannon : MonoBehaviour
         Projectile instance = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
         instance.FireForce = force;
     }
+
+    public void StringToFireForce(string input)
+    {
+        float force;
+        if(float.TryParse(input, out force))
+        {
+            FireForce = force;
+        }
+    }
 }
