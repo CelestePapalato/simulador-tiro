@@ -13,17 +13,6 @@ public class Cannon : MonoBehaviour
 
     public float FireForce { get => fireForce; set => fireForce = (value >= 0) ? value : fireForce; }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     [ContextMenu("Shoot")]
     public void Shoot()
     {
