@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] float timeAlive = 5f;
+
     private Vector3 og_scale;
     private float scaleMultiplier = 1f;
     public float ScaleMultiplier
@@ -29,6 +31,7 @@ public class Projectile : MonoBehaviour
         scaleMultiplier = 1f;
         Rigidbody = GetComponent<Rigidbody>();
         Rigidbody.AddForce(FireForce);
+        Destroy(gameObject, timeAlive);
     }
 
 }
