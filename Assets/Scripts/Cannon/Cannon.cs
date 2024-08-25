@@ -10,8 +10,12 @@ public class Cannon : MonoBehaviour
     Transform projectileSpawnPoint;
     [SerializeField]
     private float fireForce;
+    [SerializeField]
+    private float projectileMass;
 
     public float FireForce { get => fireForce; set => fireForce = (value >= 0) ? value : fireForce; }
+
+    public float ProjectileMass { get => projectileMass; set => projectileMass = (value > 0) ? value : projectileMass; }
 
     [ContextMenu("Shoot")]
     public void Shoot()
@@ -19,6 +23,7 @@ public class Cannon : MonoBehaviour
         Vector3 force = projectileSpawnPoint.up * FireForce;
         Projectile instance = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
         instance.FireForce = force;
+        instance.Mass = projectileMass;
     }
 
     public void StringToFireForce(string input)
@@ -27,6 +32,15 @@ public class Cannon : MonoBehaviour
         if(float.TryParse(input, out force))
         {
             FireForce = force;
+        }
+    }
+
+    public void StringToMass(string input)
+    {
+        float mass;
+        if (float.TryParse(input, out mass))
+        {
+            ProjectileMass = mass;
         }
     }
 }
