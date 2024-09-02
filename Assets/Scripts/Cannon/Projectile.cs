@@ -1,11 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public static event Action<Projectile> OnProjectileInstanced;
+
+    public event Action onDestroy;
+    public event Action onTargetHit;
+
     [SerializeField] float mass = 1f;
     [SerializeField] float timeAlive = 5f;
+    public string TargetTag = "Target";
 
     private Vector3 og_scale;
     private float scaleMultiplier = 1f;
@@ -36,6 +43,23 @@ public class Projectile : MonoBehaviour
         Rigidbody.mass = mass;
         Rigidbody.AddForce(FireForce);
         Destroy(gameObject, timeAlive);
+        OnProjectileInstanced?.Invoke(this);
     }
 
+    private void OnDestroy()
+    {
+        onDestroy?.Invoke();
+        collisions.Clear();
+    }
+
+    private List<GameObject> collisions = new List<GameObject>();
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag(TargetTag))
+        {
+            collisions.Add(collision.gameObject);
+            onTargetHit?.Invoke();
+        }
+    }
 }

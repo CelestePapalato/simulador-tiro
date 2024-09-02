@@ -3,27 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimulationData
-{
-    public float FireForce { get; private set; }
-    public float BreakForce { get; private set; }
-    public float BreakTorque { get; private set; }
-    public float ProjectileMass { get; private set; }
-    public float TargetMass { get; private set; }
-    public int TargetsHit { get; private set; }
-
-    private Projectile shottedProjectile;
-
-    public SimulationData()
-    {
-        BreakForce = SimulationManager.Instance.BreakForce;
-        BreakTorque = SimulationManager.Instance.BreakTorque;
-        TargetMass = SimulationManager.Instance.TargetMass;
-        ProjectileMass = SimulationManager.Instance.ProjectileMass;
-        FireForce = SimulationManager.Instance.FireForce;
-    }
-}
-
 public class SimulationManager : MonoBehaviour
 {
     [SerializeField]
@@ -167,6 +146,7 @@ public class SimulationManager : MonoBehaviour
 
     private void Start()
     {
+        Instance = this;
         onTargetMassUpdated(targetMass);
         onProjectileMassUpdated(projectileMass);
         onFireForceUpdated(fireForce);
@@ -177,6 +157,12 @@ public class SimulationManager : MonoBehaviour
     [ContextMenu("Shoot")]
     public void Shoot()
     {
+        SimulationData.AddNewData();
         onShoot();
+    }
+
+    [ContextMenu("PrintData")]
+    public void PrintData() { 
+        SimulationData.PrintData();
     }
 }

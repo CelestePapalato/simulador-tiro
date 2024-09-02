@@ -1848,8 +1848,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 364352159}
-        m_TargetAssemblyTypeName: Cannon, Assembly-CSharp
+      - m_Target: {fileID: 1355739197}
+        m_TargetAssemblyTypeName: SimulationManager, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 1
         m_Arguments:
