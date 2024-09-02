@@ -673,12 +673,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 2
-  m_MatchWidthOrHeight: 0
+  m_ReferenceResolution: {x: 960, y: 540}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1556,9 +1556,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 364352159}
-        m_TargetAssemblyTypeName: Cannon, Assembly-CSharp
-        m_MethodName: StringToMass
+      - m_Target: {fileID: 1355739197}
+        m_TargetAssemblyTypeName: SimulationManager, Assembly-CSharp
+        m_MethodName: StringToProjectileMass
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3647,7 +3647,7 @@ GameObject:
   - component: {fileID: 1355739198}
   - component: {fileID: 1355739197}
   m_Layer: 0
-  m_Name: TargetManager
+  m_Name: SimulationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3662,12 +3662,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1355739196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9ec88f7d1861545af06f294513396f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f1545445e82bfc43bf27275c70606ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetMass: 1
   breakForce: 60
   breakTorque: 10
+  fireForce: 500
+  projectileMass: 1
 --- !u!4 &1355739198
 Transform:
   m_ObjectHideFlags: 0
@@ -4793,8 +4795,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 364352159}
-        m_TargetAssemblyTypeName: Cannon, Assembly-CSharp
+      - m_Target: {fileID: 1355739197}
+        m_TargetAssemblyTypeName: SimulationManager, Assembly-CSharp
         m_MethodName: StringToFireForce
         m_Mode: 0
         m_Arguments:

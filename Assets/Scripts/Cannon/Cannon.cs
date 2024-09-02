@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,32 @@ public class Cannon : MonoBehaviour
 
     public float ProjectileMass { get => projectileMass; set => projectileMass = (value > 0) ? value : projectileMass; }
 
-    [ContextMenu("Shoot")]
-    public void Shoot()
+
+    private void OnEnable()
+    {
+        SimulationManager.onFireForceUpdated += UpdateFireForce;
+        SimulationManager.onProjectileMassUpdated += UpdateProjectileMass;
+        SimulationManager.onShoot += Shoot;
+    }
+
+    private void OnDisable()
+    {
+        SimulationManager.onFireForceUpdated -= UpdateFireForce;
+        SimulationManager.onProjectileMassUpdated -= UpdateProjectileMass;
+        SimulationManager.onShoot -= Shoot;
+    }
+
+    private void UpdateFireForce(float value)
+    {
+        FireForce = value;
+    }
+
+    private void UpdateProjectileMass(float value)
+    {
+        ProjectileMass = value;
+    }
+
+    private void Shoot()
     {
         Vector3 force = projectileSpawnPoint.up * FireForce;
         Projectile instance = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
@@ -26,21 +51,4 @@ public class Cannon : MonoBehaviour
         instance.Mass = projectileMass;
     }
 
-    public void StringToFireForce(string input)
-    {
-        float force;
-        if(float.TryParse(input, out force))
-        {
-            FireForce = force;
-        }
-    }
-
-    public void StringToMass(string input)
-    {
-        float mass;
-        if (float.TryParse(input, out mass))
-        {
-            ProjectileMass = mass;
-        }
-    }
 }
