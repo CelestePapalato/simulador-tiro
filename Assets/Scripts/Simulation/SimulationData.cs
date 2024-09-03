@@ -24,7 +24,6 @@ public class SimulationData
     {
         RotationX = Pivot.Instance.RotationX;
         RotationY = Pivot.Instance.RotationY;
-        RotationZ = Pivot.Instance.RotationZ;
         BreakForce = SimulationManager.Instance.BreakForce;
         BreakTorque = SimulationManager.Instance.BreakTorque;
         TargetMass = SimulationManager.Instance.TargetMass;
@@ -49,6 +48,8 @@ public class SimulationData
         foreach(SimulationData data in simulations)
         {
             Debug.Log(data + " #================");
+            Debug.Log("X Rotation: " + data.RotationX);
+            Debug.Log("Y Rotation: " + data.RotationY);
             Debug.Log("Fire force: " + data.FireForce);
             Debug.Log("Projectile mass: " + data.ProjectileMass);
             Debug.Log("Target mass: " + data.TargetMass);

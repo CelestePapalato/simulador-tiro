@@ -8,10 +8,24 @@ public class Target : MonoBehaviour
     public FixedJoint joint { get; private set; }
     public Rigidbody rb { get; private set; }
 
-    void Awake()
+    void Start()
     {
-        joint = GetComponent<FixedJoint>();
-        rb = GetComponent<Rigidbody>();
+        GetRequiredComponents();
+    }
+
+    void GetRequiredComponents()
+    {
+        if (!rb)
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+        if (!joint)
+        {
+            joint = GetComponent<FixedJoint>();
+        }
+        rb.mass = SimulationManager.Instance.TargetMass;
+        joint.breakForce = SimulationManager.Instance.BreakForce;
+        joint.breakTorque = SimulationManager.Instance.BreakTorque;
     }
 
     private void OnEnable()
@@ -30,20 +44,19 @@ public class Target : MonoBehaviour
 
     private void UpdateMass(float mass)
     {
+        if (!rb) { return; }
         rb.mass = mass;
     }
 
     private void UpdateBreakForce(float breakForce)
     {
+        if (!joint) { return; }
         joint.breakForce = breakForce;
     }
 
     private void UpdateBreakTorque(float breakTorque)
     {
-        if (joint == null)
-        {
-            return;
-        }
+        if (!joint) { return; }
         joint.breakTorque = breakTorque;
     }
 

@@ -165,13 +165,19 @@ public class SimulationManager : MonoBehaviour
     [ContextMenu("Shoot")]
     public void Shoot()
     {
-        targetsInstancer?.InstantiatePrefab();
+        ReloadTargets();
         SimulationData.AddNewData();
         onShoot();
     }
 
-    [ContextMenu("PrintData")]
+    [ContextMenu("Print Data")]
     public void PrintData() { 
         SimulationData.PrintData();
+    }
+
+    [ContextMenu("Reload Targets")]
+    public void ReloadTargets()
+    {
+        targetsInstancer?.InstantiatePrefab();
     }
 }
