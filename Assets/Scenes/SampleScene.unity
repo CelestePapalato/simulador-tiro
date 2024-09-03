@@ -5279,9 +5279,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1303006861}
-        m_TargetAssemblyTypeName: PrefabInstancer, Assembly-CSharp
-        m_MethodName: InstantiatePrefab
+      - m_Target: {fileID: 1355739197}
+        m_TargetAssemblyTypeName: SimulationManager, Assembly-CSharp
+        m_MethodName: ReloadTargets
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
