@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(FixedJoint))]
 public class Target : MonoBehaviour
 {
+    public static event Action onJointBreak;
     public FixedJoint joint { get; private set; }
     public Rigidbody rb { get; private set; }
 
@@ -45,5 +45,11 @@ public class Target : MonoBehaviour
             return;
         }
         joint.breakTorque = breakTorque;
+    }
+
+    private void OnJointBreak(float breakForce)
+    {
+        onJointBreak?.Invoke();
+        joint = null;
     }
 }

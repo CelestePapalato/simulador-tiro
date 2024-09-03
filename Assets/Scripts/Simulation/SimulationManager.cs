@@ -6,6 +6,9 @@ using UnityEngine;
 public class SimulationManager : MonoBehaviour
 {
     [SerializeField]
+    private PrefabInstancer targetsInstancer;
+
+    [SerializeField]
     private float targetMass;
     [SerializeField]
     private float breakForce;
@@ -24,7 +27,7 @@ public class SimulationManager : MonoBehaviour
 
     public static event Action onShoot;
 
-    public static SimulationManager Instance;
+    public static SimulationManager Instance { get; private set; }
 
     public float TargetMass
     {
@@ -147,16 +150,22 @@ public class SimulationManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        onTargetMassUpdated(targetMass);
-        onProjectileMassUpdated(projectileMass);
-        onFireForceUpdated(fireForce);
-        onBreakForceUpdated(breakForce);
-        onBreakTorqueUpdated(breakTorque);
+        SendSimulationVariables();
+    }
+
+    private void SendSimulationVariables()
+    {
+        onTargetMassUpdated?.Invoke(targetMass);
+        onProjectileMassUpdated?.Invoke(projectileMass);
+        onFireForceUpdated?.Invoke(fireForce);
+        onBreakForceUpdated?.Invoke(breakForce);
+        onBreakTorqueUpdated?.Invoke(breakTorque);
     }
 
     [ContextMenu("Shoot")]
     public void Shoot()
     {
+        targetsInstancer?.InstantiatePrefab();
         SimulationData.AddNewData();
         onShoot();
     }

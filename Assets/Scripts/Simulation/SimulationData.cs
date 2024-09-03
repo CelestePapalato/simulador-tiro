@@ -6,6 +6,10 @@ public class SimulationData
 {
     public static List<SimulationData> simulations = new List<SimulationData>();
 
+    public float RotationX {  get; private set; }
+    public float RotationY { get; private set; }
+    public float RotationZ { get; private set; }
+
     public float FireForce { get; private set; }
     public float BreakForce { get; private set; }
     public float BreakTorque { get; private set; }
@@ -13,43 +17,30 @@ public class SimulationData
     public float TargetMass { get; private set; }
     public int TargetsHit { get; private set; }
 
-    private Projectile shottedProjectile;
-
     private Action TargetHit => () => TargetsHit++;
+    private Action StopHitCounting => () => Target.onJointBreak -= TargetHit;
 
     public SimulationData()
     {
+        RotationX = Pivot.Instance.RotationX;
+        RotationY = Pivot.Instance.RotationY;
+        RotationZ = Pivot.Instance.RotationZ;
         BreakForce = SimulationManager.Instance.BreakForce;
         BreakTorque = SimulationManager.Instance.BreakTorque;
         TargetMass = SimulationManager.Instance.TargetMass;
         ProjectileMass = SimulationManager.Instance.ProjectileMass;
         FireForce = SimulationManager.Instance.FireForce;
 
-        Projectile.OnProjectileInstanced += UpdateProjectileReference;
+        Target.onJointBreak += TargetHit;
 
-    }
-
-    private void UpdateProjectileReference(Projectile instance)
-    {
-        if(instance == null) { return; }
-        shottedProjectile = instance;
-        Projectile.OnProjectileInstanced -= UpdateProjectileReference;
-        shottedProjectile.onDestroy += DeleteProjectileReference;
-        shottedProjectile.onTargetHit += TargetHit;
-    }
-
-    private void DeleteProjectileReference()
-    {
-        if(shottedProjectile != null)
-        {
-            shottedProjectile.onDestroy -= DeleteProjectileReference;
-            shottedProjectile.onTargetHit -= TargetHit;
-            shottedProjectile = null;
-        }
     }
 
     public static void AddNewData()
     {
+        if(simulations.Count > 0)
+        {
+            simulations[simulations.Count - 1].StopHitCounting();
+        }        
         simulations.Add(new SimulationData());
     }
 
