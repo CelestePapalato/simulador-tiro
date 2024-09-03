@@ -15,9 +15,9 @@ public class SimulationData
     public float BreakTorque { get; private set; }
     public float ProjectileMass { get; private set; }
     public float TargetMass { get; private set; }
-    public int TargetsHit { get; private set; }
+    public int JointsDestroyed { get; private set; }
 
-    private Action TargetHit => () => TargetsHit++;
+    private Action TargetHit => () => JointsDestroyed++;
     private Action StopHitCounting => () => Target.onJointBreak -= TargetHit;
 
     public SimulationData()
@@ -55,7 +55,7 @@ public class SimulationData
             Debug.Log("Target mass: " + data.TargetMass);
             Debug.Log("Break force: " + data.BreakForce);
             Debug.Log("Break torque: " + data.BreakTorque);
-            Debug.Log("Hits: " + data.TargetsHit);
+            Debug.Log("Joints destroyed: " + data.JointsDestroyed);
             Debug.Log("#================");
         }
     }
