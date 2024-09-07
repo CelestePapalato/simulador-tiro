@@ -5,11 +5,10 @@ using UnityEngine;
 public class SimulationData
 {
     public static List<SimulationData> simulations = new List<SimulationData>();
+    public static event Action<SimulationData> onNewSimulation;
 
     public float RotationX {  get; private set; }
     public float RotationY { get; private set; }
-    public float RotationZ { get; private set; }
-
     public float FireForce { get; private set; }
     public float BreakForce { get; private set; }
     public float BreakTorque { get; private set; }
@@ -39,8 +38,10 @@ public class SimulationData
         if(simulations.Count > 0)
         {
             simulations[simulations.Count - 1].StopHitCounting();
-        }        
-        simulations.Add(new SimulationData());
+        }
+        SimulationData simulationData = new SimulationData();
+        simulations.Add(simulationData);
+        onNewSimulation?.Invoke(simulationData);
     }
 
     public static void PrintData()
