@@ -6,14 +6,13 @@ using System;
 using Models;
 using Proyecto26;
 using UnityEditor;
+using DB;
 
 namespace DB
 {
     [Serializable]
     public class SimulationDataPost
     {
-        public int id;
-
         public float rotationX;
         public float rotationY;
         public float FireForce;
@@ -27,6 +26,18 @@ namespace DB
         {
             return UnityEngine.JsonUtility.ToJson(this, true);
         }
+
+        public SimulationDataPost(SimulationData data)
+        {
+            rotationX = data.RotationX;
+            rotationY = data.RotationY;
+            FireForce = data.FireForce;
+            BreakForce = data.BreakForce;
+            BreakTorque = data.BreakTorque;
+            ProjectileMass = data.ProjectileMass;
+            TargetMass = data.TargetMass;
+            JointsDestroyed = data.JointsDestroyed;
+        }
     }
 }
 
@@ -39,6 +50,13 @@ public class DBConnector : MonoBehaviour
     private string environment;
     private RequestHelper currentRequest;
 
+    public static DBConnector instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void LogMessage(string title, string message)
     {
 #if UNITY_EDITOR
@@ -48,8 +66,11 @@ public class DBConnector : MonoBehaviour
 #endif
     }
 
+    [ContextMenu("A ver bruh")]
     public void Post()
     {
+
+        SimulationData last = SimulationData.simulations[0];
 
         // We can add default query string params for all requests
         RestClient.DefaultRequestParams["param1"] = "My first param";
@@ -57,17 +78,12 @@ public class DBConnector : MonoBehaviour
 
         currentRequest = new RequestHelper
         {
-            Uri = basePath + "/posts",
+            Uri = basePath + environment,
             Params = new Dictionary<string, string> {
                 { "param1", "value 1" },
                 { "param2", "value 2" }
             },
-            Body = new Post
-            {
-                title = "foo",
-                body = "bar",
-                userId = 1
-            },
+            Body = new SimulationDataPost(last),
             EnableDebug = true
         };
         RestClient.Post<Post>(currentRequest)
@@ -79,5 +95,13 @@ public class DBConnector : MonoBehaviour
             this.LogMessage("Success", JsonUtility.ToJson(res, true));
         })
         .Catch(err => this.LogMessage("Error", err.Message));
+    }
+
+    [ContextMenu("Gente esto anda??")]
+    public void Get()
+    {
+        RestClient.Get(basePath + "test.json").Then(res => {
+            EditorUtility.DisplayDialog("Response", res.Text, "Ok");
+        }).Catch(err => this.LogMessage("Error", err.Message));
     }
 }

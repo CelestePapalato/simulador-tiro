@@ -3563,7 +3563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basePath: https://simulador-tiro-default-rtdb.firebaseio.com/
-  environment: test
+  environment: test/game.json
 --- !u!4 &831476910
 Transform:
   m_ObjectHideFlags: 0
