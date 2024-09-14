@@ -20,13 +20,13 @@ public class SimulationManager : MonoBehaviour
     [SerializeField]
     private float projectileMass;
 
-    public static event Action<float> onTargetMassUpdated;
-    public static event Action<float> onBreakForceUpdated;
-    public static event Action<float> onBreakTorqueUpdated;
-    public static event Action<float> onFireForceUpdated;
-    public static event Action<float> onProjectileMassUpdated;
+    public static event Action<float> OnTargetMassUpdated;
+    public static event Action<float> OnBreakForceUpdated;
+    public static event Action<float> OnBreakTorqueUpdated;
+    public static event Action<float> OnFireForceUpdated;
+    public static event Action<float> OnProjectileMassUpdated;
 
-    public static event Action onShoot;
+    public static event Action OnShoot;
 
     public static SimulationManager Instance { get; private set; }
 
@@ -38,7 +38,7 @@ public class SimulationManager : MonoBehaviour
             if (value > 0)
             {
                 targetMass = value;
-                onTargetMassUpdated(targetMass);
+                OnTargetMassUpdated(targetMass);
             }
         }
     }
@@ -50,7 +50,7 @@ public class SimulationManager : MonoBehaviour
             if (value > 0)
             {
                 breakForce = value;
-                onBreakForceUpdated(breakForce);
+                OnBreakForceUpdated(breakForce);
             }
         }
     }
@@ -62,7 +62,7 @@ public class SimulationManager : MonoBehaviour
             if (value > 0)
             {
                 breakTorque = value;
-                onBreakTorqueUpdated(breakTorque);
+                OnBreakTorqueUpdated(breakTorque);
             }
         }
     }
@@ -74,7 +74,7 @@ public class SimulationManager : MonoBehaviour
             if (value >= 0)
             {
                 fireForce = value;
-                onFireForceUpdated(fireForce);
+                OnFireForceUpdated(fireForce);
             }
         }
     }
@@ -86,7 +86,7 @@ public class SimulationManager : MonoBehaviour
             if (value > 0)
             {
                 projectileMass = value;
-                onProjectileMassUpdated(projectileMass);
+                OnProjectileMassUpdated(projectileMass);
             }
         }
     }
@@ -156,11 +156,11 @@ public class SimulationManager : MonoBehaviour
 
     private void SendSimulationVariables()
     {
-        onTargetMassUpdated?.Invoke(targetMass);
-        onProjectileMassUpdated?.Invoke(projectileMass);
-        onFireForceUpdated?.Invoke(fireForce);
-        onBreakForceUpdated?.Invoke(breakForce);
-        onBreakTorqueUpdated?.Invoke(breakTorque);
+        OnTargetMassUpdated?.Invoke(targetMass);
+        OnProjectileMassUpdated?.Invoke(projectileMass);
+        OnFireForceUpdated?.Invoke(fireForce);
+        OnBreakForceUpdated?.Invoke(breakForce);
+        OnBreakTorqueUpdated?.Invoke(breakTorque);
     }
 
     [ContextMenu("Shoot")]
@@ -168,7 +168,7 @@ public class SimulationManager : MonoBehaviour
     {
         ReloadTargets();
         SimulationTracker.Instance.AddNewData();
-        onShoot();
+        OnShoot();
     }
 
     [ContextMenu("Reload Targets")]

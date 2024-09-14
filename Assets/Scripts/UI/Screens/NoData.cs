@@ -13,12 +13,12 @@ public class NoData : MonoBehaviour
 
     private void OnEnable()
     {
-        SimulationTracker.onDataPut += CheckPostStatus;
+        SimulationTracker.OnDataPut += CheckPostStatus;
     }
 
     private void OnDisable()
     {
-        SimulationTracker.onDataPut -= CheckPostStatus;
+        SimulationTracker.OnDataPut -= CheckPostStatus;
     }
 
     private void CheckPostStatus(bool success)

@@ -8,11 +8,11 @@ public class SimulationTracker : MonoBehaviour
 {
     public static SimulationTracker Instance;
 
-    public static event Action<Data[]> onDataGet;
-    public static event Action<SimulationData> onNewSimulation;
-    public static event Action<bool> onDataPut;
-    public static event Action onDataPutSuccess;
-    public static event Action onDataPutFailure;
+    public static event Action<SimulationData[]> OnDataGet;
+    public static event Action<SimulationData> OnNewSimulation;
+    public static event Action<bool> OnDataPut;
+    public static event Action OnDataPutSuccess;
+    public static event Action OnDataPutFailure;
 
     private void Awake()
     {
@@ -23,13 +23,7 @@ public class SimulationTracker : MonoBehaviour
         }
         Instance = this;
     }
-
-    private void Start()
-    {
-        DBConnector.Instance.GetTrackerData();
-    }
-
-    private void OnEnable()
+        private void OnEnable()
     {
         DBConnector.onPut += CleanDataAfterPut;
         DBConnector.onGet += AddSimulations;
@@ -39,6 +33,11 @@ public class SimulationTracker : MonoBehaviour
     {
         DBConnector.onPut -= CleanDataAfterPut;
         DBConnector.onGet -= AddSimulations;
+    }
+
+    private void Start()
+    {
+        DBConnector.Instance.GetTrackerData();
     }
 
     [Serializable]
@@ -61,13 +60,19 @@ public class SimulationTracker : MonoBehaviour
         }
     }
 
-    public List<SimulationData> newSimulations = new List<SimulationData>();
-    public List<SimulationData> Simulations = new List<SimulationData>();
+    private List<SimulationData> newSimulations = new List<SimulationData>();
+    private List<SimulationData> simulationsHistory = new List<SimulationData>();
+    public List<SimulationData> Simulations { get { return simulationsHistory.Concat(newSimulations).ToList(); } }
 
-    public void AddSimulations(Data simulationTracker)
+    private void AddSimulations(Data simulationTracker)
     {
         DBConnector.onGet -= AddSimulations;
-        Simulations.AddRange(simulationTracker.simulations);
+        simulationsHistory.AddRange(simulationTracker.simulations);
+        foreach(var simulation in simulationsHistory)
+        {
+            simulation.isPosted = true;
+        }
+        OnDataGet?.Invoke(simulationsHistory.ToArray());
     }
 
     public void AddNewData()
@@ -78,7 +83,7 @@ public class SimulationTracker : MonoBehaviour
         }
         SimulationData simulationData = new SimulationData();
         newSimulations.Add(simulationData);
-        onNewSimulation?.Invoke(simulationData);
+        OnNewSimulation?.Invoke(simulationData);
     }
 
     public void PutData()
@@ -86,14 +91,14 @@ public class SimulationTracker : MonoBehaviour
         if (!newSimulations.Any())
         {
             Debug.Log("no new data");
-            onDataPut?.Invoke(false);
+            OnDataPut?.Invoke(false);
             return;
         }
         if (!DBConnector.Instance)
         {
             Debug.Log("No Database Connector instance exists");
-            onDataPut?.Invoke(false);
-            onDataPutFailure?.Invoke();
+            OnDataPut?.Invoke(false);
+            OnDataPutFailure?.Invoke();
             return;
         }
 
@@ -110,8 +115,8 @@ public class SimulationTracker : MonoBehaviour
         }
         newSimulations.CopyTo(aux, 0);
         newSimulations.Clear();
-        Simulations.Concat(aux);
-        onDataPut?.Invoke(true);
-        onDataPutSuccess?.Invoke();
+        simulationsHistory.AddRange(aux);
+        OnDataPut?.Invoke(true);
+        OnDataPutSuccess?.Invoke();
     }
 }

@@ -21,16 +21,16 @@ public class Cannon : MonoBehaviour
 
     private void OnEnable()
     {
-        SimulationManager.onFireForceUpdated += UpdateFireForce;
-        SimulationManager.onProjectileMassUpdated += UpdateProjectileMass;
-        SimulationManager.onShoot += Shoot;
+        SimulationManager.OnFireForceUpdated += UpdateFireForce;
+        SimulationManager.OnProjectileMassUpdated += UpdateProjectileMass;
+        SimulationManager.OnShoot += Shoot;
     }
 
     private void OnDisable()
     {
-        SimulationManager.onFireForceUpdated -= UpdateFireForce;
-        SimulationManager.onProjectileMassUpdated -= UpdateProjectileMass;
-        SimulationManager.onShoot -= Shoot;
+        SimulationManager.OnFireForceUpdated -= UpdateFireForce;
+        SimulationManager.OnProjectileMassUpdated -= UpdateProjectileMass;
+        SimulationManager.OnShoot -= Shoot;
     }
 
     private void UpdateFireForce(float value)

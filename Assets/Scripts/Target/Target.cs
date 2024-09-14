@@ -30,16 +30,16 @@ public class Target : MonoBehaviour
 
     private void OnEnable()
     {
-        SimulationManager.onTargetMassUpdated += UpdateMass;
-        SimulationManager.onBreakForceUpdated += UpdateBreakForce;
-        SimulationManager.onBreakTorqueUpdated += UpdateBreakTorque;
+        SimulationManager.OnTargetMassUpdated += UpdateMass;
+        SimulationManager.OnBreakForceUpdated += UpdateBreakForce;
+        SimulationManager.OnBreakTorqueUpdated += UpdateBreakTorque;
     }
 
     private void OnDisable()
     {
-        SimulationManager.onTargetMassUpdated -= UpdateMass;
-        SimulationManager.onBreakForceUpdated -= UpdateBreakForce;
-        SimulationManager.onBreakTorqueUpdated -= UpdateBreakTorque;
+        SimulationManager.OnTargetMassUpdated -= UpdateMass;
+        SimulationManager.OnBreakForceUpdated -= UpdateBreakForce;
+        SimulationManager.OnBreakTorqueUpdated -= UpdateBreakTorque;
     }
 
     private void UpdateMass(float mass)

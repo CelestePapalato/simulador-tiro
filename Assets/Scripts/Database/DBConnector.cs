@@ -65,7 +65,7 @@ public class DBConnector : MonoBehaviour
         Exception exception = null;
 
         RestClient.Get(basePath + environment + "/Data.json").Then(res => {
-            EditorUtility.DisplayDialog("Response", res.Text, "Ok");
+            //EditorUtility.DisplayDialog("Response", res.Text, "Ok");
             response = res;
         }).Catch(err =>
         {

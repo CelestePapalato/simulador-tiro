@@ -12,14 +12,24 @@ public class SimulationDataUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SimulationTracker.onNewSimulation += AddNewSlot;
-        SimulationTracker.onDataPutSuccess += UpdateData;
+        SimulationTracker.OnNewSimulation += AddNewSlot;
+        SimulationTracker.OnDataGet += AddArray;
+        SimulationTracker.OnDataPutSuccess += UpdateData;
     }
 
     private void OnDisable()
     {
-        SimulationTracker.onNewSimulation -= AddNewSlot;
-        SimulationTracker.onDataPutSuccess -= UpdateData;
+        SimulationTracker.OnNewSimulation -= AddNewSlot;
+        SimulationTracker.OnDataGet -= AddArray;
+        SimulationTracker.OnDataPutSuccess -= UpdateData;
+    }
+
+    private void AddArray(SimulationData[] dataArray)
+    {
+        foreach(var item in dataArray)
+        {
+            AddNewSlot(item);
+        }
     }
 
     private void AddNewSlot(SimulationData data)
