@@ -11,12 +11,12 @@ public class SimulationDataUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SimulationData.onNewSimulation += AddNewSlot;
+        SimulationTracker.onNewSimulation += AddNewSlot;
     }
 
     private void OnDisable()
     {
-        SimulationData.onNewSimulation -= AddNewSlot;
+        SimulationTracker.onNewSimulation -= AddNewSlot;
     }
 
     private void AddNewSlot(SimulationData data)
