@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class SimulationDataSlotUI : MonoBehaviour
 {
+    [SerializeField]
+    Color postedDataColor;
+    [SerializeField]
+    Color newDataColor;
+
+    Image image;
+
     private SimulationData simulationData;
 
     public SimulationData SimulationData
@@ -34,6 +42,11 @@ public class SimulationDataSlotUI : MonoBehaviour
     [SerializeField]
     TMP_Text jointsDestroyed;
 
+    private void Awake()
+    {
+        image = GetComponent<Image>();
+    }
+
     public void UpdateData()
     {
         xRotation.text = (simulationData != null) ? simulationData.RotationX.ToString() : null;
@@ -44,5 +57,9 @@ public class SimulationDataSlotUI : MonoBehaviour
         projectileMass.text = (simulationData != null) ? simulationData.ProjectileMass.ToString() : null;
         targetMass.text = (simulationData != null) ? simulationData.TargetMass.ToString() : null;
         jointsDestroyed.text = (simulationData != null) ? simulationData.JointsDestroyed.ToString() : null;
+
+        if (!image) { return; }
+
+        image.color = (simulationData.isPosted) ? postedDataColor : newDataColor;
     }
 }

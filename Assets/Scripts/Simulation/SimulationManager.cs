@@ -1,3 +1,4 @@
+using Proyecto26;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -166,7 +167,7 @@ public class SimulationManager : MonoBehaviour
     public void Shoot()
     {
         ReloadTargets();
-        SimulationTracker.AddNewData();
+        SimulationTracker.Instance.AddNewData();
         onShoot();
     }
 
@@ -179,6 +180,6 @@ public class SimulationManager : MonoBehaviour
     [ContextMenu("Post Data")]
     public void PostData()
     {
-        SimulationTracker.PostData();
+        SimulationTracker.Instance.PutData();
     }
 }

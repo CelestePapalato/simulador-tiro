@@ -1193,6 +1193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21265f16d81d92b4aa5d46b263bcde02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  postedDataColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 0.39215687}
+  newDataColor: {r: 0.12459949, g: 0.6707011, b: 0.754717, a: 0.64705884}
   xRotation: {fileID: 6911445695608777329}
   yRotation: {fileID: 3541184354486873864}
   fireForce: {fileID: 6084174183301021297}

@@ -21,12 +21,12 @@ public class DBError : MonoBehaviour
 
     private void OnEnable()
     {
-        DBConnector.onError += UpdateLog;
+        DBConnector.onFailure += UpdateLog;
     }
 
     private void OnDisable()
     {
-        DBConnector.onError -= UpdateLog;
+        DBConnector.onFailure -= UpdateLog;
     }
 
     private void UpdateLog(System.Exception err)

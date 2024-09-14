@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,13 @@ public class SimulationDataUI : MonoBehaviour
     private void OnEnable()
     {
         SimulationTracker.onNewSimulation += AddNewSlot;
+        SimulationTracker.onDataPutSuccess += UpdateData;
     }
 
     private void OnDisable()
     {
         SimulationTracker.onNewSimulation -= AddNewSlot;
+        SimulationTracker.onDataPutSuccess -= UpdateData;
     }
 
     private void AddNewSlot(SimulationData data)

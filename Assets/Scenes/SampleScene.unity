@@ -1177,7 +1177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Post
+  m_text: Put
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1267,7 +1267,7 @@ GameObject:
   - component: {fileID: 203142119}
   - component: {fileID: 203142118}
   m_Layer: 5
-  m_Name: Post
+  m_Name: Put
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2854,7 +2854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: No new data to post
+  m_text: No new data to put
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4787,8 +4787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7695967381772484c83f4f8907832b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePath: https://simulador-tiro-default-rtdb.firebaseio.com/
-  environment: test/game.json
 --- !u!4 &831476910
 Transform:
   m_ObjectHideFlags: 0
@@ -6756,8 +6754,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1355739198}
   - component: {fileID: 1355739197}
+  - component: {fileID: 1355739199}
   m_Layer: 0
-  m_Name: SimulationManager
+  m_Name: Simulation Manager and Tracker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6796,6 +6795,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1355739199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355739196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c838e9a38a5f24da61e2aa39578187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newSimulations: []
+  Simulations: []
 --- !u!1 &1393478575
 GameObject:
   m_ObjectHideFlags: 0

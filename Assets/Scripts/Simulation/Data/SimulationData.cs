@@ -15,6 +15,9 @@ public class SimulationData
     public float ProjectileMass;
     public float TargetMass;
     public int JointsDestroyed;
+
+    public bool isPosted { get; set; }
+
     private Action TargetHit => () => JointsDestroyed++;
     public Action StopHitCounting => () => Target.onJointBreak -= TargetHit;
 
@@ -29,6 +32,8 @@ public class SimulationData
         FireForce = SimulationManager.Instance.FireForce;
 
         Target.onJointBreak += TargetHit;
+
+        isPosted = false;
     }
 
 }
