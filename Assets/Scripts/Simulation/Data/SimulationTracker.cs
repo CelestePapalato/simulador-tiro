@@ -71,6 +71,7 @@ public class SimulationTracker : MonoBehaviour
         foreach(var simulation in simulationsHistory)
         {
             simulation.isPosted = true;
+            simulation.StopHitCounting();
         }
         OnDataGet?.Invoke(simulationsHistory.ToArray());
     }
